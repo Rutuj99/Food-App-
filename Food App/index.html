@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up /In</title>
+    <style>
+        body{
+            background-color: rgb(161, 162, 163);
+        }
+        #two{
+            margin-top: 10%;
+            display: flex;
+           justify-content: space-evenly;
+           gap: 10%;
+           
+        }
+
+        #two section{
+            border: 2px solid black;
+            width: 50%;
+            padding-left: 50px;
+            background-color: azure;
+        }
+    </style>
+</head>
+<body>
+    <div id="two">
+       <section>
+          <h1>SIGN UP FORM</h1>
+          <input type="text" id="email" placeholder="Enter Name"><br><br>
+          <input type="password" id="pass" placeholder="Enter password"><br><br>
+          <button onclick="signup()">Sign UP</button><br><br>
+       </section>
+         
+
+       <section>
+        <h1>SIGN IN FORM</h1>
+        <input type="text" id="email1" placeholder="Enter Name registered email id"><br><br>
+        <input type="password" id="pass1" placeholder="Enter correct password"><br><br>
+        <button onclick="signin()">Sign In</button>
+     </section>
+    </div>
+</body>
+</html>
+<script>
+   function signup(){
+    var arr= JSON.parse(localStorage.getItem("account-data")) || [] 
+        var x=document.getElementById("email").value;
+        var y=document.getElementById("pass").value;
+
+        if(x==="" || y===""){
+    alert("fill all input data")
+    return
+  }
+
+//   console.log(arr)
+   var flag=0;
+  arr.forEach(elem => {
+    //   console.log(elem.email==x)
+       if(elem.email==x){
+        console.log("same")
+        // 
+         flag=1;
+       }
+    
+  });
+
+  if(flag==1){
+    alert("email already present enter different email")
+    document.getElementById("email").value=""
+    document.getElementById("pass").value=""
+    return;
+  }
+
+  var obj={
+   
+        email:x,
+        pass:y
+      }
+      arr.push(obj)
+       
+     
+    //   console.log(arr)
+    
+      localStorage.setItem("account-data",JSON.stringify(arr))
+      alert("Sign Up Successfull")
+      document.getElementById("email1").value=""
+    document.getElementById("pass1").value=""
+
+   }
+
+
+   function signin(){
+    var x=document.getElementById("email1").value;
+        var y=document.getElementById("pass1").value;
+
+    var arr= JSON.parse(localStorage.getItem("account-data")) || [] ;
+    var flag=0;
+  arr.forEach(elem => {
+       if(elem.email==x && elem.pass){
+        console.log("same")
+         flag=1;
+       }
+    
+  });
+
+  if(flag==1){
+    alert("sign In successsful")
+    document.getElementById("email1").value=""
+    document.getElementById("pass1").value=""
+    location.href="byname.html";
+    
+  }else{
+    alert("wrong email or password")
+    document.getElementById("email1").value=""
+    document.getElementById("pass1").value=""
+  }
+
+   }
+
+</script>
